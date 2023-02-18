@@ -3,9 +3,9 @@ import './App.css';
 
 function App() {
 
-  const handleRandomNumber = () => {
+  function Random () {
     let maxNum = 50;
-    let randomNumber = Math.floor((Math.random() * maxNum) + 1);
+    let randomNumber = Math.floor((Math.random() * maxNum) + 1 );
     return randomNumber;
   }
 
@@ -14,8 +14,17 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-         Random Number { handleRandomNumber() } !
+          Editar <code>src/App.js</code> 
         </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+        <p>{ Random() }</p>
       </header>
     </div>
   );
