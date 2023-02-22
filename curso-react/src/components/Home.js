@@ -9,8 +9,19 @@ const Home = () => {
     return randomNumber;
   }
 
+  const estilos = {
+    backgroundColor: 'LightBlue'
+  }
+
   return (
-    <div>Numero aleatorio {Random()}</div>
+    <div style={estilos}>Numero aleatorio {Random()}
+    
+    <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
+    
+    </div>
+
   )
 }
 
