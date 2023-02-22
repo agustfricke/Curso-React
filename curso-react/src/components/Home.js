@@ -1,28 +1,17 @@
-import React from 'react'
+import React from "react";
 
-const Home = () => {
+const Home = (props) => {
 
+    return (
+        <div className="flex justify-center">
+        <div className='mt-5'>
+            <img
+                { ...props }
+            />
+        </div>
+        </div>
+    );
+};
 
-  function Random () {
-    let maxNum = 50;
-    let randomNumber = Math.floor((Math.random() * maxNum) + 1 );
-    return randomNumber;
-  }
+export default Home;
 
-  const estilos = {
-    backgroundColor: 'LightBlue'
-  }
-
-  return (
-    <div style={estilos}>Numero aleatorio {Random()}
-    
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    
-    </div>
-
-  )
-}
-
-export default Home
