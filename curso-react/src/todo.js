@@ -1,161 +1,25 @@
-// PROPS EN REACT
+// RENDERIZADO CONDICIONAL
 
-// Los componentes usan props para poder cominucarse entre ellos 
-// cada componente padre puede pasar infromacion al componente hijo
-// En estos ejemplos el componente padre va a ser App.js y el
-// componente hijo va a ser Home.js
-// Los props se parecen mucho a los atributos HTML donde podemos 
-// pasar valores de JavaScript al HTML.
+//  Tus componentes a menudo necesitarán mostrar diferentes 
+//  cosas dependiendo de diferentes condiciones. En React, puedes 
+//  renderizar JSX de forma condicional utilizando la sintaxis de 
+//  JavaScript como las declaraciones if, && y los operadores ? :
 
-// Los props son infromacion que podemos pasar al tag JSX, por ejemplo
-// los className, src, alt, entro otros
+// Okey vamos a comenzar con el siguiente condigo:
 
-// Vamos a comenzar con el siguiente codigo:
 
-// App.js
 import Home from './components/Home';
+import Card from './components/Card';
 
 function App() {
 
   return (
     <div className="bg-gray-900 w-full min-h-screen">
-      <Home  />
-    </div>
-  );
-}
-
-export default App;
-
-// components/Home.js
-import React from "react";
-
-const Home = () => {
-
-    return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-            <p className="text-white">Username: </p>
-            <img
-                width={100}
-                height={100}
-                alt='User'
-                src="https://cdn-icons-png.flaticon.com/512/2550/2550383.png"
-            />
-        </div>
-        </div>
-    );
-};
-
-export default Home;
-
-// Para pasar los props nesesitamos hacer 2 cosas:
-// 1- Pasar los props al Home desde App.js pasemos un nombre de usuario
-// y un tamano para la imagen:
-
-// App.js
-
-import Home from './components/Home';
-
-function App() {
-
-  return (
-    <div className="bg-gray-900 w-full min-h-screen">
-      <Home  user='Tech con Agust' size={100}/>
-    </div>
-  );
-}
-
-export default App;
-
-// Ahora el segundo paso seria pasar estos props dentro del componente
-// Home.js
-
-// components/Home.js
-import React from "react";
-
-const Home = ({ user, size }) => {
-
-    return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-            <p className="text-white">Username:{ user } </p>
-            <img
-                width={ size }
-                height={ size }
-                alt='User'
-                src="https://cdn-icons-png.flaticon.com/512/2550/2550383.png"
-            />
-        </div>
-        </div>
-    );
-};
-
-export default Home;
-
-// Como podemos ver tenemos los siguientes datos en el componente
-// Ahora creemos depliquemos este componente pasandole diferente 
-// infromacion a los props
-
-
-// App.js
-
-import Home from './components/Home';
-
-function App() {
-
-  return (
-    <div className="bg-gray-900 w-full min-h-screen">
-      <Home  user='Tech con Agust' size={100}/>
-      <Home  user='Agustin' size={200}/>
-      <Home  user='Belen' size={50}/>
-    </div>
-  );
-}
-
-export default App;
-
-// Exelente espero que ya vallas viendo el potencial de los props
-//
-// Tambien podemos pasar los props de la siguiente manera:
-
-
-import React from "react";
-
-const Home = (props) => {
-
-    return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-            <p className="text-white">Username:{ props.user } </p>
-            <img
-                width={ props.size }
-                height={ props.size }
-                alt='User'
-                src="https://cdn-icons-png.flaticon.com/512/2550/2550383.png"
-            />
-        </div>
-        </div>
-    );
-};
-
-export default Home;
-
-// En este ejemplo de aqui estamos descructurando el prop en el 
-// componente en vez de leerlo desde el parametro de la funcion
-//
-
-// Tambien podemos pasar valores ya definidos en el prop cuando 
-// este no tiene un valor ya definido, lo podemos destructurar 
-// pondiendo un igno de igual
-
-
-import Home from './components/Home';
-
-function App() {
-
-  return (
-    <div className="bg-gray-900 w-full min-h-screen">
-      <Home user={'Tech con Agust'} size={undefined}/>
+      <Card>
+        <Home es_admin={true} username='Agustin'/>
+        <Home es_admin={false} username='Belen'/>
+        <Home es_admin={true} username='Martin'/>
+      </Card>
     </div>
   );
 }
@@ -165,112 +29,12 @@ export default App;
 
 import React from "react";
 
-const Home = ({ user, size=100 }) => {
+const Home = ({ username, es_admin }) => {
 
     return (
         <div className="flex justify-center">
         <div className='mt-5'>
-            <p className="text-white">Username:{ user } </p>
-            <img
-                width={ size }
-                height={ size }
-                alt='User'
-                src="https://cdn-icons-png.flaticon.com/512/2550/2550383.png"
-            />
-        </div>
-        </div>
-    );
-};
-
-export default Home;
-
-
-// Aveces pasamos demasiados parametros y nustro codigo se puede
-// volver repetitivo
-
-
-import React from "react";
-
-const Home = ({ user, size, alt, src }) => {
-
-    return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-            <p className="text-white">Username:{ user } </p>
-            <img
-                width={ size }
-                height={ size }
-                alt={ alt }
-                src={ src }
-            />
-        </div>
-        </div>
-    );
-};
-
-export default Home;
-
-// para que nuestro codigo sea mas facil de leer lo que podemos hacer
-// es usar lo que se le llama como spread syntax
-
-import React from "react";
-
-const Home = (props) => {
-
-    return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-            <img
-                { ...props }
-            />
-        </div>
-        </div>
-    );
-};
-
-export default Home;
-
-
-import Home from './components/Home';
-
-function App() {
-
-  return (
-    <div className="bg-gray-900 w-full min-h-screen">
-      <Home src={'https://cdn-icons-png.flaticon.com/512/5003/5003738.png'} 
-        size={300} alt={'Nombre de usuario'}/>
-    </div>
-  );
-}
-
-export default App;
-
-
-// Es comun encontrarnos cosas como:
- <div>
-    <img/>
-</div>
-
-// Pero aveces queremos alojar nuestros componentes de la misma manera
-// como por ejemplo algo como:
-
-<Componente>
-    <OtroComponente/>
-</Componente>
-
-// Aqui un ejemplo de como se podria usar:
-
-
-import React from "react";
-
-const Home = (props) => {
-
-    return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-            <img
-                { ...props }
-            />
+            <p> { username }</p>
         </div>
         </div>
     );
@@ -291,20 +55,156 @@ const Card = ({ children }) => {
 }
 export default Card;
 
-// El compontee padre en este caso Card recive el contendio en un prop
-// llamando children y luego a Home lo podemos poner dentro, basicamente
-// seria como un div mas personalizado :D
-
-// okey eso fue todo por los props, si te gusto dejame un like y 
-// subribete si quieres mas contenido como este, los veo en el 
-// proximo captitulo :D
+// En este ejemplode renderizando condiconal lo que queremos hacer es poner
+// un texto verde para los usuarios que sean admin, osea que tengan 
+// privilegios de administrador,y texto rojo para los que no tengan privilegios 
+// de admin, 
 
 
+import React from "react";
+
+const Home = ({ username, es_admin }) => {
+
+    if (es_admin) {
+        return (
+        <div className="flex justify-center">
+        <div className='mt-5'>
+        <p className='text-green-800'>{ username } </p>
+        </div>
+        </div>
+        )
+    }  
+        return (
+        <div className="flex justify-center">
+        <div className='mt-5'>
+        <p className='text-red-800'>{ username } </p>
+        </div>
+        </div>
+        )
+    }
+
+};
+
+export default Home;
+
+// Devolucion de NULL
+
+// En algunas situaciones no vas a querer devolver nada, por ejempolo no queremos
+// devolver los usuarios que tengan permisos de administrador, un componente
+// deve devolver algo y en un caso asi podemos devolver null
+
+import React from "react";
+
+const Home = ({ username, es_admin }) => {
+
+    if (es_admin) {
+        return null
+    }  
+        return (
+        <div className="flex justify-center">
+        <div className='mt-5'>
+        <p className='text-red-800'>{ username } </p>
+        </div>
+        </div>
+        )
+    }
+
+};
+
+export default Home;
+
+// A este codigo lo podemos hacer mas eficiente o DRY, que significaNo te repitas en
+// ingles para eso podeos usar el condicional ternario ? :
+
+import React from "react";
+
+const Home = ({ username, es_admin }) => {
+
+    return (
+
+        <div className="flex justify-center">
+        <div className='mt-5'>
+        { es_admin ? 
+            <p className='text-green-800'>{ username }</p>
+            : 
+            <p className='text-red-800'> { username }</p>
+        }
+        </div>
+        </div>
+    )
+}
+export default Home;
+
+// perfeto ahora se lee mucho mejor
+
+// tambien podemos hacer algo como para poner mas facil poner mas JSX en cada
+// uno de los casos
+import React from "react";
+
+const Home = ({ username, es_admin }) => {
+
+    return (
+
+        <div className="flex justify-center">
+        <div className='mt-5'>
+        { es_admin ? ( 
+            <del>
+            <p className='text-green-800'>{ username }</p>
+            </del>
+        ) : ( 
+            <p className='text-red-800'> { username }</p>
+        )}
+        </div>
+        </div>
+    )
+}
+export default Home;
 
 
+// EL OPERADOR LOGICO AND (&&)
+// Otro codicional que podemos poner es el operador logico and, 
+// dentro de los componentes de react a menudo tenemos la nesesidad renderizar
+// algun JSX cuando la condicion es verdadera o no renderizar nada en el caso
+// de contrario, con && podemos renderizar condicionalmente solo si los
+// usuarios son admin
 
+import React from "react";
 
+const Home = ({ username, es_admin }) => {
 
+    return (
+
+        <div className="flex justify-center">
+        <div className='mt-5'>
+        
+        { es_admin && 
+            <p className='text-green-800'> { username }</p>
+        }
+
+        </div>
+        </div>
+    )
+}
+export default Home;
+
+// Asignacion condicional a una variables JSX
+
+import React from 'react';
+
+const Home = () => {
+
+    let admin = username;
+    if (es_admin) {
+        admin = <p className='text-green-800'> { username } </p>
+    }
+    return (
+        <div>
+        { admin }
+        </div>
+    )
+}
+
+export default Home;
 
 
 

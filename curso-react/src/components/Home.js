@@ -1,13 +1,11 @@
 import React from "react";
 
-const Home = (props) => {
+const Home = ({ username, es_admin }) => {
 
     return (
         <div className="flex justify-center">
         <div className='mt-5'>
-            <img
-                { ...props }
-            />
+            <p> { username }</p>
         </div>
         </div>
     );
