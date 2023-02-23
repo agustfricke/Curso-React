@@ -1,11 +1,46 @@
-// RENDERIZANDO ARRAYS
+// ARRAYS EN REACT
 
-// Aveces tenemos colecctiones de datos que por lo general vienen del backend
-// de nuestra apliacion, y basicamente nesesitamos manipular esos arrays
-// de datos para mostrarlos en nuestreos componenetes de React
+// En nuestras apliaciones de React  casi siempre vamos a recibir datos
+// en fromato JSON, que basicamente es una coleccion de datos, podemos 
+// usar metodos de arrays de JavaScript para manipular un array de datos
+// En este espiodio vamos a ver como usar filter y map con react para
+// filtrar y transormar un array de datos y poderlo usar en nuestros 
+// componentes de react.
 
-// Basicamente voy a empezar con este codigo de aqui:
 
+import React from "react";
+
+const Home = () => {
+
+    const people = [{
+        id: 0,
+        username: 'Agustin',
+        es_admin: true,
+      }, {
+          id: 1,
+          username: 'Belen',
+          es_admin: true,
+      }, {
+          id: 2,
+          username: 'Carolina',
+          es_admin: false,
+      }];
+
+
+
+    return (
+        <div className="flex justify-center">
+        <div className='mt-5'>
+
+        </div>
+        </div>
+    );
+};
+
+export default Home;
+
+
+// Trabajando con Arrays
 import Home from './components/Home';
 
 function App() {
@@ -17,23 +52,32 @@ function App() {
   );
 }
 
-export default App;
-
+// Podemos mapear todo este contendio de la siguietne manera 
 
 import React from "react";
 
 const Home = () => {
 
+    const people = [{
+        id: 0,
+        username: 'Agustin',
+        es_admin: true,
+      }, {
+          id: 1,
+          username: 'Belen',
+          es_admin: true,
+      }, {
+          id: 2,
+          username: 'Carolina',
+          es_admin: false,
+      }];
+
+    const list = people.map(user => <p className="text-white">{user.username}</p>)
+
     return (
         <div className="flex justify-center">
         <div className='mt-5'>
-        <ul>
-        <li>Creola Katherine Johnson: mathematician</li>
-        <li>Mario José Molina-Pasquel Henríquez: chemist</li>
-        <li>Mohammad Abdus Salam: physicist</li>
-        <li>Percy Lavon Julian: chemist</li>
-        <li>Subrahmanyan Chandrasekhar: astrophysicist</li>
-        </ul>
+            {list}
         </div>
         </div>
     );
@@ -41,88 +85,69 @@ const Home = () => {
 
 export default Home;
 
+// Nota que tenemos un error y esto basicamente se soluciona proprcionando un id 
+// a cada item de la lista 
+// Esto es porque nesitamios idientificar de manera unica cada elemento del array
+// Por lo general se le pone el ID ya que es un numero unico
 
-// Okey como vemos en el componente home tenemos muchos una lista de nombres
-// Lo que vamos a hacer es meter eso datos dentro de un array llamado personas
-// para poder trabajar con ellos
-
-const people = [
-  'Creola Katherine Johnson: mathematician',
-  'Mario José Molina-Pasquel Henríquez: chemist',
-  'Mohammad Abdus Salam: physicist',
-  'Percy Lavon Julian: chemist',
-  'Subrahmanyan Chandrasekhar: astrophysicist'
-];
-
-// Okey ahora mapiemos testa arry de people:
+// Digamos que queremos mostrar solo los usuarios con permisos de es_admin
 
 
-const listItems = people.map(person => <li>{person}</li>);
-return <ul>{listItems}</ul>;
+import React from "react";
 
-Date cuenta que el sandbox anterior muestra un error por consola:
+const Home = () => {
 
-Warning: Each child in a list should have a unique “key” prop.
+    const people = [{
+        id: 0,
+        username: 'Agustin',
+        es_admin: true,
+      }, {
+          id: 1,
+          username: 'Belen',
+          es_admin: true,
+      }, {
+          id: 2,
+          username: 'Carolina',
+          es_admin: false,
+      }];
 
-Aprenderás como arreglar este error más adelante en esta página. Antes de que 
-lleguemos a eso, vamos a añadir algo de estructura a tus datos.
+    const admin = people.filter(user => user.es_admin === true)
 
+    const list = admin.map(user => <p className="text-white">{user.username}</p>)
 
-Estos datos pueden ser estructurados incluso más.
+    return (
+        <div className="flex justify-center">
+        <div className='mt-5'>
+            {list}
+        </div>
+        </div>
+    );
+};
 
-const people = [{
-  id: 0,
-  name: 'Creola Katherine Johnson',
-  profession: 'mathematician',
-}, {
-  id: 1,
-  name: 'Mario José Molina-Pasquel Henríquez',
-  profession: 'chemist',
-}, {
-  id: 2,
-  name: 'Mohammad Abdus Salam',
-  profession: 'physicist',
-}, {
-  name: 'Percy Lavon Julian',
-  profession: 'chemist',  
-}, {
-  name: 'Subrahmanyan Chandrasekhar',
-  profession: 'astrophysicist',
-}];
+export default Home;
 
-// Digamos que quieres una manera de mostrar solo las personas cuya 
-// profesión sea 'mathematician'. 
-// Podemos usar el metodo filer() de JS para devolver solo esas personas
-// ser haria de la siguiente manera
-
-const matematicos = people.filer(persona => {
-    persona.profession === 'mathematician'
-}
-
-// Ahora mapiemos sobre los matematicos
-
-const listItems = chemists.map(person =>
-  <li>
-     <img
-       src={getImageUrl(person)}
-       alt={person.name}
-     />
-     <p>
-       <b>{person.name}:</b>
-       {' ' + person.profession + ' '}
-       known for {person.accomplishment}
-     </p>
-  </li>
-
-// Porultimo ponermos la variable en el componenete
+// Las funciones flecha devuelven una expresion justo despues de 
+// => asi que no debes poner el return 
 
 
- return <ul>{listItems}</ul>;
+
+const list = admin.map(user => <p className="text-white">{user.username}</p>)
+
+// Debemos escribir el return en el caso de que pongamos unas llaves 
+
+const list = admin.map(user => {
+    return <p className="text-white">{user.username}</p>
+)}
 
 
-Buscar el key ejemplos en 
 
-https://beta.es.reactjs.org/learn/rendering-lists
+
+
+
+
+
+
+
 
 
 
