@@ -1,25 +1,18 @@
-// RENDERIZADO CONDICIONAL
+// RENDERIZANDO ARRAYS
 
-//  Tus componentes a menudo necesitarán mostrar diferentes 
-//  cosas dependiendo de diferentes condiciones. En React, puedes 
-//  renderizar JSX de forma condicional utilizando la sintaxis de 
-//  JavaScript como las declaraciones if, && y los operadores ? :
+// Aveces tenemos colecctiones de datos que por lo general vienen del backend
+// de nuestra apliacion, y basicamente nesesitamos manipular esos arrays
+// de datos para mostrarlos en nuestreos componenetes de React
 
-// Okey vamos a comenzar con el siguiente condigo:
-
+// Basicamente voy a empezar con este codigo de aqui:
 
 import Home from './components/Home';
-import Card from './components/Card';
 
 function App() {
 
   return (
     <div className="bg-gray-900 w-full min-h-screen">
-      <Card>
-        <Home es_admin={true} username='Agustin'/>
-        <Home es_admin={false} username='Belen'/>
-        <Home es_admin={true} username='Martin'/>
-      </Card>
+      <Home/>
     </div>
   );
 }
@@ -29,12 +22,18 @@ export default App;
 
 import React from "react";
 
-const Home = ({ username, es_admin }) => {
+const Home = () => {
 
     return (
         <div className="flex justify-center">
         <div className='mt-5'>
-            <p> { username }</p>
+        <ul>
+        <li>Creola Katherine Johnson: mathematician</li>
+        <li>Mario José Molina-Pasquel Henríquez: chemist</li>
+        <li>Mohammad Abdus Salam: physicist</li>
+        <li>Percy Lavon Julian: chemist</li>
+        <li>Subrahmanyan Chandrasekhar: astrophysicist</li>
+        </ul>
         </div>
         </div>
     );
@@ -43,168 +42,90 @@ const Home = ({ username, es_admin }) => {
 export default Home;
 
 
-import React from "react";
+// Okey como vemos en el componente home tenemos muchos una lista de nombres
+// Lo que vamos a hacer es meter eso datos dentro de un array llamado personas
+// para poder trabajar con ellos
 
-const Card = ({ children }) => {
+const people = [
+  'Creola Katherine Johnson: mathematician',
+  'Mario José Molina-Pasquel Henríquez: chemist',
+  'Mohammad Abdus Salam: physicist',
+  'Percy Lavon Julian: chemist',
+  'Subrahmanyan Chandrasekhar: astrophysicist'
+];
 
-    return (
-        <div className="bg-gray-400 p-5">
-            { children }
-        </div>
-    )
-}
-export default Card;
-
-// En este ejemplode renderizando condiconal lo que queremos hacer es poner
-// un texto verde para los usuarios que sean admin, osea que tengan 
-// privilegios de administrador,y texto rojo para los que no tengan privilegios 
-// de admin, 
+// Okey ahora mapiemos testa arry de people:
 
 
-import React from "react";
+const listItems = people.map(person => <li>{person}</li>);
+return <ul>{listItems}</ul>;
 
-const Home = ({ username, es_admin }) => {
+Date cuenta que el sandbox anterior muestra un error por consola:
 
-    if (es_admin) {
-        return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-        <p className='text-green-800'>{ username } </p>
-        </div>
-        </div>
-        )
-    }  
-        return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-        <p className='text-red-800'>{ username } </p>
-        </div>
-        </div>
-        )
-    }
+Warning: Each child in a list should have a unique “key” prop.
 
-};
-
-export default Home;
-
-// Devolucion de NULL
-
-// En algunas situaciones no vas a querer devolver nada, por ejempolo no queremos
-// devolver los usuarios que tengan permisos de administrador, un componente
-// deve devolver algo y en un caso asi podemos devolver null
-
-import React from "react";
-
-const Home = ({ username, es_admin }) => {
-
-    if (es_admin) {
-        return null
-    }  
-        return (
-        <div className="flex justify-center">
-        <div className='mt-5'>
-        <p className='text-red-800'>{ username } </p>
-        </div>
-        </div>
-        )
-    }
-
-};
-
-export default Home;
-
-// A este codigo lo podemos hacer mas eficiente o DRY, que significaNo te repitas en
-// ingles para eso podeos usar el condicional ternario ? :
-
-import React from "react";
-
-const Home = ({ username, es_admin }) => {
-
-    return (
-
-        <div className="flex justify-center">
-        <div className='mt-5'>
-        { es_admin ? 
-            <p className='text-green-800'>{ username }</p>
-            : 
-            <p className='text-red-800'> { username }</p>
-        }
-        </div>
-        </div>
-    )
-}
-export default Home;
-
-// perfeto ahora se lee mucho mejor
-
-// tambien podemos hacer algo como para poner mas facil poner mas JSX en cada
-// uno de los casos
-import React from "react";
-
-const Home = ({ username, es_admin }) => {
-
-    return (
-
-        <div className="flex justify-center">
-        <div className='mt-5'>
-        { es_admin ? ( 
-            <del>
-            <p className='text-green-800'>{ username }</p>
-            </del>
-        ) : ( 
-            <p className='text-red-800'> { username }</p>
-        )}
-        </div>
-        </div>
-    )
-}
-export default Home;
+Aprenderás como arreglar este error más adelante en esta página. Antes de que 
+lleguemos a eso, vamos a añadir algo de estructura a tus datos.
 
 
-// EL OPERADOR LOGICO AND (&&)
-// Otro codicional que podemos poner es el operador logico and, 
-// dentro de los componentes de react a menudo tenemos la nesesidad renderizar
-// algun JSX cuando la condicion es verdadera o no renderizar nada en el caso
-// de contrario, con && podemos renderizar condicionalmente solo si los
-// usuarios son admin
+Estos datos pueden ser estructurados incluso más.
 
-import React from "react";
+const people = [{
+  id: 0,
+  name: 'Creola Katherine Johnson',
+  profession: 'mathematician',
+}, {
+  id: 1,
+  name: 'Mario José Molina-Pasquel Henríquez',
+  profession: 'chemist',
+}, {
+  id: 2,
+  name: 'Mohammad Abdus Salam',
+  profession: 'physicist',
+}, {
+  name: 'Percy Lavon Julian',
+  profession: 'chemist',  
+}, {
+  name: 'Subrahmanyan Chandrasekhar',
+  profession: 'astrophysicist',
+}];
 
-const Home = ({ username, es_admin }) => {
+// Digamos que quieres una manera de mostrar solo las personas cuya 
+// profesión sea 'mathematician'. 
+// Podemos usar el metodo filer() de JS para devolver solo esas personas
+// ser haria de la siguiente manera
 
-    return (
-
-        <div className="flex justify-center">
-        <div className='mt-5'>
-        
-        { es_admin && 
-            <p className='text-green-800'> { username }</p>
-        }
-
-        </div>
-        </div>
-    )
-}
-export default Home;
-
-// Asignacion condicional a una variables JSX
-
-import React from 'react';
-
-const Home = () => {
-
-    let admin = username;
-    if (es_admin) {
-        admin = <p className='text-green-800'> { username } </p>
-    }
-    return (
-        <div>
-        { admin }
-        </div>
-    )
+const matematicos = people.filer(persona => {
+    persona.profession === 'mathematician'
 }
 
-export default Home;
+// Ahora mapiemos sobre los matematicos
+
+const listItems = chemists.map(person =>
+  <li>
+     <img
+       src={getImageUrl(person)}
+       alt={person.name}
+     />
+     <p>
+       <b>{person.name}:</b>
+       {' ' + person.profession + ' '}
+       known for {person.accomplishment}
+     </p>
+  </li>
+
+// Porultimo ponermos la variable en el componenete
+
+
+ return <ul>{listItems}</ul>;
+
+
+Buscar el key ejemplos en 
+
+https://beta.es.reactjs.org/learn/rendering-lists
+
+
+
 
 
 

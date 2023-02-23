@@ -1,11 +1,17 @@
 import React from "react";
 
-const Home = ({ username, es_admin }) => {
+const Home = () => {
 
     return (
         <div className="flex justify-center">
         <div className='mt-5'>
-            <p> { username }</p>
+            <ul>
+                <li> nombre: Agustin</li>
+                <li> nombre: Belen</li>
+                <li> nombre: Eugenia</li>
+                <li> nombre: Pedro</li>
+                <li> nombre: Mario</li>
+            </ul>
         </div>
         </div>
     );
