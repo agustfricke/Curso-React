@@ -16,14 +16,26 @@ const Home = () => {
           es_admin: false,
       }];
 
-    const admin = people.filter(user => user.es_admin === true)
+    const admin = people.filter(user => user.es_admin === true);
 
-    const list = admin.map(user => <p className="text-white">{user.username}</p>)
+    const list = admin.map(user => 
+
+    <div key={user.id}>
+        <p className="text-white">{user.username}</p>
+    </div> 
+    
+    )
 
     return (
         <div className="flex justify-center">
         <div className='mt-5'>
-            {list}
+            {admin.map(user => {
+                return (
+                <div key={user.id}>
+                    <p className="text-white">{user.username}</p>
+                </div> 
+                ) 
+            })}
         </div>
         </div>
     );
