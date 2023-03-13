@@ -1,0 +1,153 @@
+Responder a Eventos
+
+Los manejadores de eventos son funciones propias que se ejecutan en respuesta 
+a interacciones como por ejemplo hacer un click en un boton.
+React nos permite anadir mandejadores de eventos a nuestro JSX de una manera muy sencilla 
+
+Para este primer ejemplo solo tengo un boton que no hace nada aun... Aun
+
+    <button>
+      No hago nada
+    </button>
+
+Para lograr que este boton mustre un mensaje cuando el usuario haga click debemos seguir 3 simples pasos
+
+1- Declarar una funcion llamanda handleClick dentro del componente
+2- Implementar la logica dentro de esa funcion (en este caso vamos a poner un simple alert)
+3- Agregar onClick={handleClick} al JSX dentro del boton
+
+  function handleClick() {
+    alert('¡Me cliqueaste!');
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Cliquéame
+    </button>
+  );
+
+Pero no es la unica manera de hacer esto, podemos parar el manejador de eventos directamente en el JSX
+
+  <button onClick={function handleClick() {
+    alert('¡Me cliqueaste!');
+  }}>
+
+  // O con funcion flecha que es aun mas corto
+
+  <button onClick={() => {
+    alert('¡Me cliqueaste!');
+  }}>
+
+// LEYENDO PROPS EN LOS MANEJADORES DE EVENTOS
+
+// Como los manejadores de eventos son declarados dentro de un componente, tienen acceso a los props del componente
+Hagamos un ejemplo:
+
+function AlertButton({ message, children }) {
+  return (
+    <button onClick={() => alert(message)}>
+      {children}
+    </button>
+  );
+}
+
+export default function Toolbar() {
+  return (
+    <div>
+      <AlertButton message="¡Reproduciendo!">
+        Reproducir película
+      </AlertButton>
+      <AlertButton message="¡Subiendo!">
+        Subir imagen
+      </AlertButton>
+    </div>
+  );
+}
+
+// PROPAGACION DE EVENTOS
+
+Los manejadores de eventos tambien atrapan eventos de cualquier componente padre que pueda llegar a tener, 
+Hagamos el siguiente ejemplo, donde los 2 botones estan heredando el click del componente padre
+
+export default function Toolbar() {
+  return (
+    <div className="Toolbar" onClick={() => {
+      alert('¡Cliqueaste el Toolbar!');
+    }}>
+      <button onClick={() => alert('¡Reproduciendo!')}>
+        Reproducir película
+      </button>
+      <button onClick={() => alert('¡Subiendo!')}>
+        Subir imagen
+      </button>
+    </div>
+  );
+}
+
+// DETENER LA PROPAGACION
+
+ Si quieres evitar que un evento llegue a los componentes padre, necesitas llamar 
+ e.stopPropagation() como este componente Button lo hace:
+
+ function Button({ onClick, children }) {
+  return (
+    <button onClick={e => {
+      e.stopPropagation();
+      onClick();
+    }}>
+      {children}
+    </button>
+  );
+}
+
+export default function Toolbar() {
+  return (
+    <div className="Toolbar" onClick={() => {
+      alert('¡Cliqueaste el Toolbar!');
+    }}>
+      <Button onClick={() => alert('¡Reproduciendo!')}>
+        Reproducir película
+      </Button>
+      <Button onClick={() => alert('¡Subiendo!')}>
+        Subir imagen
+      </Button>
+    </div>
+  );
+}
+
+// EVITAR EL COMPORTAMIENTO POR COMPLETO:
+
+Algunos eventos del navegador tienen un comportamiento por defacto asociados a ellos, por ejemplo,
+un evento submit de un <form>,  por defecto recargara la pagina completa
+
+export default function Signup() {
+  return (
+    <form onSubmit={() => alert('¡Enviando!')}>
+      <input />
+      <button>Send</button>
+    </form>
+  );
+}
+
+Puedes llamar a e.preventDefault(), para evitar que esto pase
+export default function Signup() {
+  return (
+    <form onSubmit={e => {
+      e.preventDefault();
+      alert('¡Enviando!');
+    }}>
+      <input />
+      <button>Enviar</button>
+    </form>
+  );
+}
+
+
+
+
+
+
+
+
+
+
