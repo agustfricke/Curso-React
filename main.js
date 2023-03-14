@@ -1,6 +1,9 @@
-function AlertButton({ message, children }) {
+function Button({ onClick, children }) {
   return (
-    <button onClick={() => alert(message)}>
+    <button onClick={e => {
+      e.stopPropagation();
+      onClick();
+    }}>
       {children}
     </button>
   );
@@ -8,16 +11,13 @@ function AlertButton({ message, children }) {
 
 function App () {
     return (
-      <div onClick={() => {
-        alert('¡Cliqueaste el Div!');
+      <form onSubmit={e => {
+        e.preventDefault();
+        alert('¡Enviando!');
       }}>
-        <button onClick={() => alert('Hola!')}>
-          Hola
-        </button>
-        <button onClick={() => alert('Chau!')}>
-          Chau
-        </button>
-      </div>
+        <input />
+        <button>Enviar</button>
+      </form>
     );
   }
 export default App 
