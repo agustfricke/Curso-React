@@ -1,30 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function App() {
+  const [count, setCount] = useState(0);
+  const [calculation, setCalculation] = useState(0);
 
-  const[user, setUser] = useState([
-    'Agustin',
-    'Fricke',
-   '23'
-  ])
-
-  const updateUser = () => {
-    setUser(previoState => {
-      return {...previoState, edad: '34'}
-    })
-  }
+  useEffect(() => {
+    setCalculation(() => count * 2);
+  }, [count]); // <- add the count variable here
 
   return (
-    <div>
-      <p>name: {user.name}</p>
-      <p>lastname: {user.lastName}</p>
-      <p>edad: {user.edad}</p>
-      <button
-        type="button"
-        onClick={updateUser}
-      >Cambiar edad a 34</button>
-    </div>
+    <>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>+</button>
+      <p>Calculation: {calculation}</p>
+    </>
   );
+
 }
 
 
