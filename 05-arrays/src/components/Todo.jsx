@@ -14,7 +14,7 @@ const Todo = () => {
   const [tasks, setTasks] = useState(initialState)
 
     function handleClick() {
-      setTasks([...tasks, {id: nextId++, name:name}])
+      setTasks([...tasks, {id: nextId++, name:name, completed:false}])
       setName('')
   }
 
@@ -52,7 +52,7 @@ const Todo = () => {
               onChange={e => {
                 onToggle(
                   task.id,
-                  e.target.checked
+                  e.target.checked,
                 );
               }}
             />
