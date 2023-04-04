@@ -1,9 +1,12 @@
 export function filterItems(items, query) {
     query = query.toLowerCase()
     return items.filter(item => 
+        // Separamos los nombres en palabras con split
+        // Y con some comprobamos si alguna palabra empieza con query
         item.name.split(' ').some(word => 
             word.toLowerCase().startsWith(query)))
 }
+
 
 export const names = [
     {id: 0, name: "John"},
